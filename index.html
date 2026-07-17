@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <script src="https://cdn.jsdelivr.net/npm/easyqrcodejs@4.4.13/dist/easy.qrcode.min.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; color: #1e293b; }
+        .container { width: 100%; max-width: 650px; }
+        
+        /* Title at top */
+        h1 { color: #4f46e5; text-align: center; margin-bottom: 30px; font-size: 28px; }
+        
+        /* Ad Styles */
+        .ad-placeholder { width: 100%; height: 90px; background-color: #e2e8f0; display: flex; align-items: center; justify-content: center; border-radius: 12px; color: #94a3b8; font-size: 14px; margin-bottom: 30px; }
+        
+        /* Card Style */
+        .card { background: white; border: 1px solid #e2e8f0; border-radius: 16px; padding: 35px; margin-bottom: 25px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        
+        input { width: 100%; padding: 18px; border: 2px solid #e2e8f0; border-radius: 10px; box-sizing: border-box; margin-bottom: 20px; font-size: 16px; transition: border-color 0.2s; }
+        input:focus { border-color: #4f46e5; outline: none; }
+        
+        .btn-group { display: flex; gap: 15px; }
+        button { flex: 1; padding: 18px; border: none; border-radius: 10px; color: white; font-weight: 600; cursor: pointer; font-size: 15px; transition: opacity 0.2s; }
+        button:hover { opacity: 0.9; }
+        
+        .btn-primary { background-color: #4f46e5; }
+        .btn-secondary { background-color: #64748b; }
+        .btn-success { background-color: #059669; width: 100%; margin-top: 20px; }
+        
+        #qr-display { display: flex; justify-content: center; align-items: center; min-height: 250px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>QR Code Generator</h1>
+        
+        <!-- Top Ad -->
+        <div class="ad-placeholder">Leaderboard Ad</div>
+        
+        <div class="card">
+            <input type="text" id="input-text" placeholder="Paste your link or text here...">
+            
+            <div class="btn-group">
+                <button class="btn-primary" onclick="generateQR()">GENERATE</button>
+                <button class="btn-secondary" onclick="clearQR()">CLEAR</button>
+            </div>
+            
+            <button class="btn-success" id="download-btn" style="display:none;" onclick="downloadQR()">DOWNLOAD PNG</button>
+        </div>
+
+        <div class="card" id="qr-display">
+            <div id="qrcode"></div>
+        </div>
+
+        <!-- Bottom Ad -->
+        <div class="ad-placeholder">Bottom Banner Ad</div>
+    </div>
+
+<script>
+    function generateQR() {
+        const text = document.getElementById('input-text').value;
+        const container = document.getElementById('qrcode');
+        if(!text) return;
+        
+        container.innerHTML = "";
+        new QRCode(container, {
+            text: text,
+            width: 220,
+            height: 220
+        });
+        document.getElementById('download-btn').style.display = 'block';
+    }
+
+    function clearQR() {
+        document.getElementById('input-text').value = "";
+        document.getElementById('qrcode').innerHTML = "";
+        document.getElementById('download-btn').style.display = 'none';
+    }
+
+    function downloadQR() {
+        const canvas = document.querySelector('canvas');
+        const link = document.createElement('a');
+        link.download = 'qrcode.png';
+        link.href = canvas.toDataURL();
+        link.click();
+    }
+</script>
+
+</body>
+</html>
