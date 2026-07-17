@@ -3,91 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Code Generator</title>
+    <title>QR Code Generator - Free & Custom| UtilitySuite</title>
+    <meta name="description" content="Create QR codes for any link or text in seconds. High-quality, easy to download, and 100% free. No registration required.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/easyqrcodejs@4.4.13/dist/easy.qrcode.min.js"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; color: #1e293b; }
-        .container { width: 100%; max-width: 650px; }
+        :root { 
+            --bg-color: #f1f5f9; 
+            --primary: #4f46e5;
+            --success: #059669;
+            --text: #1e293b;
+            --border: #e2e8f0;
+            --font-family: 'Outfit', sans-serif;
+        }
+        body { margin: 0; font-family: var(--font-family); background-color: var(--bg-color); color: var(--text); display: flex; min-height: 100vh; }
+
+        .top-accent { position: fixed; top: 0; left: 0; width: 100%; height: 4px; background: var(--primary); z-index: 1000; }
+
+        .sidebar { width: 260px; background: white; border-right: 1px solid var(--border); padding: 60px 20px; flex-shrink: 0; }
+        .brand { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.25em; color: #64748b; margin-bottom: 30px; padding-left: 20px; }
         
-        /* Title at top */
-        h1 { color: #4f46e5; text-align: center; margin-bottom: 30px; font-size: 28px; }
+        #tools-sidebar { display: flex; flex-direction: column; }
+        .tool-btn { 
+            display: block; padding: 16px 20px; margin: 2px 0; border-radius: 10px; 
+            text-decoration: none; color: #475569; font-size: 13px; font-weight: 600; 
+            transition: all 0.2s; border-bottom: 1px solid #f8fafc;
+        }
+        .tool-btn:hover { background: #f5f3ff; color: var(--primary); border-bottom-color: #e0e7ff; }
+
+        .main-content { flex: 1; padding: 60px 40px; display: flex; flex-direction: column; align-items: center; }
+        .wrapper { max-width: 800px; width: 100%; }
+
+        h1 { margin: 0 0 40px 0; color: #0f172a; font-size: 2.5rem; font-weight: 800; letter-spacing: -0.04em; }
+
+        .ad-container { display: flex; justify-content: center; margin: 20px 0; overflow: hidden; }
         
-        /* Ad Styles */
-        .ad-placeholder { width: 100%; height: 90px; background-color: #e2e8f0; display: flex; align-items: center; justify-content: center; border-radius: 12px; color: #94a3b8; font-size: 14px; margin-bottom: 30px; }
+        .card { background: white; padding: 32px; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); margin-bottom: 25px; }
         
-        /* Card Style */
-        .card { background: white; border: 1px solid #e2e8f0; border-radius: 16px; padding: 35px; margin-bottom: 25px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-        
-        input { width: 100%; padding: 18px; border: 2px solid #e2e8f0; border-radius: 10px; box-sizing: border-box; margin-bottom: 20px; font-size: 16px; transition: border-color 0.2s; }
-        input:focus { border-color: #4f46e5; outline: none; }
-        
+        input { width: 100%; padding: 16px; border: 2px solid var(--border); border-radius: 12px; box-sizing: border-box; font-size: 16px; outline: none; margin-bottom: 20px; }
+        input:focus { border-color: var(--primary); }
+
         .btn-group { display: flex; gap: 15px; }
-        button { flex: 1; padding: 18px; border: none; border-radius: 10px; color: white; font-weight: 600; cursor: pointer; font-size: 15px; transition: opacity 0.2s; }
-        button:hover { opacity: 0.9; }
-        
-        .btn-primary { background-color: #4f46e5; }
-        .btn-secondary { background-color: #64748b; }
-        .btn-success { background-color: #059669; width: 100%; margin-top: 20px; }
-        
+        button { border: none; padding: 18px; border-radius: 12px; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.2s; color: white; text-transform: uppercase; font-family: var(--font-family); flex: 1; }
+        button:hover { filter: brightness(1.1); }
+        .btn-primary { background: var(--primary); }
+        .btn-secondary { background: #64748b; }
+        .btn-success { background: var(--success); width: 100%; margin-top: 15px; }
+
         #qr-display { display: flex; justify-content: center; align-items: center; min-height: 250px; }
+
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); padding: 30px 20px; }
+            .main-content { padding: 30px 20px; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>QR Code Generator</h1>
-        
-        <!-- Top Ad -->
-        <div class="ad-placeholder">Leaderboard Ad</div>
-        
-        <div class="card">
-            <input type="text" id="input-text" placeholder="Paste your link or text here...">
-            
-            <div class="btn-group">
-                <button class="btn-primary" onclick="generateQR()">GENERATE</button>
-                <button class="btn-secondary" onclick="clearQR()">CLEAR</button>
+    <div class="top-accent"></div>
+
+    <aside class="sidebar">
+        <div class="brand">UtilitySuite</div>
+        <div id="tools-sidebar"></div>
+    </aside>
+
+    <main class="main-content">
+        <div class="wrapper">
+            <h1>QR Code Generator</h1>
+
+            <div class="ad-container">
+                <script>atOptions = {'key' : 'ea9023c6230a4134ea2bb21d415f3647', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {}};</script>
+                <script src="https://www.highperformanceformat.com/ea9023c6230a4134ea2bb21d415f3647/invoke.js"></script>
             </div>
-            
-            <button class="btn-success" id="download-btn" style="display:none;" onclick="downloadQR()">DOWNLOAD PNG</button>
+
+            <div class="card">
+                <input type="text" id="input-text" placeholder="Paste your link or text here...">
+                <div class="btn-group">
+                    <button class="btn-primary" onclick="generateQR()">Generate</button>
+                    <button class="btn-secondary" onclick="clearQR()">Clear</button>
+                </div>
+                <button class="btn-success" id="download-btn" style="display:none;" onclick="downloadQR()">Download PNG</button>
+            </div>
+
+            <div class="card" id="qr-display">
+                <div id="qrcode"></div>
+            </div>
+
+            <div class="ad-container">
+                <script>atOptions = {'key' : '7cf39fb102b8e5ac06d9ab8ec745e58c', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {}};</script>
+                <script src="https://www.highperformanceformat.com/7cf39fb102b8e5ac06d9ab8ec745e58c/invoke.js"></script>
+            </div>
         </div>
+    </main>
 
-        <div class="card" id="qr-display">
-            <div id="qrcode"></div>
-        </div>
+    <script>
+        function generateQR() {
+            const text = document.getElementById('input-text').value;
+            const container = document.getElementById('qrcode');
+            if(!text) return;
+            container.innerHTML = "";
+            new QRCode(container, { text: text, width: 220, height: 220 });
+            document.getElementById('download-btn').style.display = 'block';
+        }
 
-        <!-- Bottom Ad -->
-        <div class="ad-placeholder">Bottom Banner Ad</div>
-    </div>
+        function clearQR() {
+            document.getElementById('input-text').value = "";
+            document.getElementById('qrcode').innerHTML = "";
+            document.getElementById('download-btn').style.display = 'none';
+        }
 
-<script>
-    function generateQR() {
-        const text = document.getElementById('input-text').value;
-        const container = document.getElementById('qrcode');
-        if(!text) return;
-        
-        container.innerHTML = "";
-        new QRCode(container, {
-            text: text,
-            width: 220,
-            height: 220
-        });
-        document.getElementById('download-btn').style.display = 'block';
-    }
+        function downloadQR() {
+            const canvas = document.querySelector('canvas');
+            const link = document.createElement('a');
+            link.download = 'qrcode.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
 
-    function clearQR() {
-        document.getElementById('input-text').value = "";
-        document.getElementById('qrcode').innerHTML = "";
-        document.getElementById('download-btn').style.display = 'none';
-    }
-
-    function downloadQR() {
-        const canvas = document.querySelector('canvas');
-        const link = document.createElement('a');
-        link.download = 'qrcode.png';
-        link.href = canvas.toDataURL();
-        link.click();
-    }
-</script>
-
+        const tools = [
+            { name: "Image Compressor", url: "https://zaraouilabs.github.io/Image-Compressor/" },
+            { name: "Date Calculator", url: "https://zaraouilabs.github.io/Date-Calculator/" },
+            { name: "HEIC Converter", url: "https://zaraouilabs.github.io/HEIC-to-JPEG-converter/" },
+            { name: "WebP Converter", url: "https://zaraouilabs.github.io/webp-to-jpg-convertor/" },
+            { name: "JSON Formatter", url: "https://zaraouilabs.github.io/JSON-formatter/" },
+            { name: "Word Counter", url: "https://zaraouilabs.github.io/wordcount-pro/" },
+            { name: "Case Converter", url: "https://zaraouilabs.github.io/case-converter/" },
+            { name: "Percentage Calc", url: "https://zaraouilabs.github.io/percentage_counter/" },
+            { name: "Base64 Converter", url: "https://zaraouilabs.github.io/Base64_convertor/" },
+            { name: "Password Generator", url: "https://zaraouilabs.github.io/Password_Generator/" },
+            { name: "Loan Calculator", url: "https://zaraouilabs.github.io/loan-calculator/" }
+        ];
+        document.getElementById('tools-sidebar').innerHTML = tools.map(t => `<a href="${t.url}" class="tool-btn">${t.name}</a>`).join('');
+    </script>
+    <script src="https://pl30403648.effectivecpmnetwork.com/8d/6e/16/8d6e16cf626599011a4b1d03060dc5cf.js"></script>
 </body>
 </html>
