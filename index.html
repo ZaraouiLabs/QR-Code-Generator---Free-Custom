@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Code Generator - Free & Custom| UtilitySuite</title>
+    <title>QR Code Generator - Free & Custom | UtilitySuite</title>
     <meta name="description" content="Create QR codes for any link or text in seconds. High-quality, easy to download, and 100% free. No registration required.">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/easyqrcodejs@4.4.13/dist/easy.qrcode.min.js"></script>
@@ -55,6 +56,17 @@
 
         #qr-display { display: flex; justify-content: center; align-items: center; min-height: 250px; }
 
+        /* SEO Content Styles */
+        .info-section { background: white; padding: 32px; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); margin-top: 25px; }
+        .info-section h2 { color: #0f172a; font-size: 1.4rem; font-weight: 700; margin-top: 0; margin-bottom: 12px; }
+        .info-section h3 { color: #334155; font-size: 1.1rem; font-weight: 600; margin-top: 20px; margin-bottom: 8px; }
+        .info-section p, .info-section li { color: #475569; font-size: 0.95rem; line-height: 1.6; }
+        .info-section ol { padding-left: 20px; margin: 0; }
+        .info-section ol li { margin-bottom: 8px; }
+        .faq-item { margin-bottom: 16px; }
+        .faq-item:last-child { margin-bottom: 0; }
+        .privacy-badge { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; padding: 16px; border-radius: 12px; font-size: 0.9rem; margin-top: 20px; font-weight: 500; }
+
         @media (max-width: 768px) {
             body { flex-direction: column; }
             .sidebar { display: none; }
@@ -104,6 +116,38 @@
             <div class="ad-container">
                 <script>atOptions = {'key' : '7cf39fb102b8e5ac06d9ab8ec745e58c', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {}};</script>
                 <script src="https://www.highperformanceformat.com/7cf39fb102b8e5ac06d9ab8ec745e58c/invoke.js"></script>
+            </div>
+
+            <!-- SEO Content & About Sections -->
+            <div class="info-section">
+                <h2>About UtilitySuite QR Code Generator</h2>
+                <p>The UtilitySuite QR Code Generator is a fast, lightweight tool for converting URLs, plain text, contact information, or Wi-Fi details into scannable Quick Response (QR) codes. Designed for high clarity and instant downloading, it gives you a clean PNG file ready for print, social media, or marketing materials.</p>
+
+                <h2>How to Generate a QR Code</h2>
+                <ol>
+                    <li><strong>Enter Content:</strong> Type or paste your desired link or text into the input field.</li>
+                    <li><strong>Generate:</strong> Click the <strong>"GENERATE"</strong> button to instantly render your dynamic preview.</li>
+                    <li><strong>Download:</strong> Click <strong>"DOWNLOAD PNG"</strong> to export a high-resolution image file to your device.</li>
+                    <li><strong>Reset:</strong> Use the <strong>"CLEAR"</strong> button whenever you need to start fresh with new content.</li>
+                </ol>
+
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                <div class="faq-item">
+                    <h3>Do these QR codes expire?</h3>
+                    <p>No. The generated QR codes encode your exact text or URL directly into the matrix pattern. Because there are no redirect servers in between, your QR codes will work permanently without expiring.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What can I store in a QR code?</h3>
+                    <p>You can convert website addresses, online portfolios, plain text notes, email addresses, phone numbers, or social media links into scannable codes.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Is this service free to use for commercial projects?</h3>
+                    <p>Yes, 100% free. You can use the downloaded PNG images freely for personal or commercial projects, flyers, menus, business cards, and websites without registration.</p>
+                </div>
+
+                <div class="privacy-badge">
+                    🔒 <strong>Privacy First Note:</strong> UtilitySuite generates all QR codes strictly on your browser client side. Your inputs and links are never sent to external servers or saved in remote logs.
+                </div>
             </div>
         </div>
     </main>
